@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>A visual task study, part 1</title>
+    <title>KIM</title>
     <!-- Importing all necessary scripts and sheets -->
 
     <!-- General jsPsych script and general jsPsych css stylesheet -->
@@ -81,7 +81,7 @@
     type: 'fullscreen',
     fullscreen_mode: true,
     button_label: 'Go full screen',
-    message: '<p>The experiment will switch to full screen mode when you press the button below. <br>If you accidentally leave the fullscreen mode, you can return by pressing F11 (or Fn + F11) on your keyboard. </p>'
+    message: '<p>The experiment will switch to full screen mode when you press the button below. <br>If you accidentally leave the fullscreen mode, you can return by pressing F11 (or Fn + F11) on your keyboard. <br><br> Your data will not be stored!</p>'
   };
 
 // Resizing the display: uses the credit card check, to get browser's inch/pixel-ratio to resize the experiment container to display images in the correct size
@@ -106,17 +106,10 @@
     // Calculate the pixel dimensions of the images needed to get the correct display size on the screen in inch: Take the desired display size of pictures in INCH, multiply by pixels_per_unit (100) and out come the dimensions in PIXEL that the input image must have, so that it is displayed in the correct INCH-size on all computers.
 
 
-// 2.0 Introduction
-    var introduction = {
-      type: 'html-button-response',
-      stimulus: "<p>This is the Kimchi task as the participants were presented in session 1 and 2.</p>",
-      choices: ['Continue']
-    };
-
 // 2.1 Instructions for Kimchi
 	var kimchi_introduction = {
 	  type: 'html-button-response',
-	  stimulus: "<p>This is a practice round for task 1.<br><br><br></p>" +
+	  stimulus: "<p>This is a practice round.<br><br><br></p>" +
           "<p><b>Instructions:</b> You will briefly see an image, which will disappear and be replaced by two images.<br><br>" +
           "<b>></b> If the <b>left</b> image resembles the original image more press <b>'E'</b> <br>" +
           "<b>></b> If the <b>right</b> image resembles the original image more press <b>'I'</b>. <br><br>" +
@@ -171,24 +164,10 @@
         ],
 	};
 
-    // Choose trial number
-    var choose_trial_num = {
-      type: 'survey-multi-choice',
-      questions: [
-        {prompt: "<p>How many trials do you want to do?</p>", name: 'choose_trial_num', options: ['64', '32'], required:true},
-      ],
-    }
-
-    var kimchi_introduction = {
-      type: 'html-button-response',
-      stimulus: "<p>How many trials do you want to do? 64 trials will take you about 5 min, </p>",
-      choices: [64,32]
-    };
-
 // 2.4 Announce the beginning of the actual task
 	var kimchi_task_announcement = {
 	  type: 'html-keyboard-response',
-	  stimulus: "<p>The previous trials were practice trials, now the tasks phase starts. (~4 min)<br><br><br></p>" +
+	  stimulus: "<p>The previous trials were practice trials, now the tasks phase starts. (~2 min)<br><br><br></p>" +
           "<p><b>Instruction reminder:</b> You will briefly see an image, which will disappear and be replaced by two images.<br><br>" +
           "<b>></b> If the <b>left</b> image resembles the original image more press <b>'E'</b><br>" +
           "<b>></b> If the <b>right</b> image resembles the original image more press <b>'I'</b>.<br><br>" +
@@ -217,7 +196,7 @@
                 stimulus_width: kimchi_stim_w,
                 trial_duration: kimchi_original_duration,
                 choices: jsPsych.NO_KEYS,
-                data: { test_part: 'kimchi original'},
+                data: {test_part: 'kimchi original'},
             },
             {
                 // second blank
@@ -254,57 +233,49 @@
             },
         ],
         randomize_order: true,
-        repetitions: 1, // run the 16 trials twice
+        repetitions: 1, // run the 32 trials only once
         // each line of the timeline_variables will trigger one trial, it contains the stimulus and data about the current trial, e.g. which subtype of the Kimchi task it is
         timeline_variables: [
         // left figure matches locally, right figure matches globally
-            { original: 'img_kimchi/kimchi_sqsq.png', choice: 'img_kimchi/kimchi_sqtr_trsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'e', global: 'i' } },// e is the left choice, i is the right choice
-            { original: 'img_kimchi/kimchi_sqtr.png', choice: 'img_kimchi/kimchi_sqsq_trtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'e', global: 'i' } },// so here the locally matching figure was on the left and the globally matching figure on the right
-            //{ original: 'img_kimchi/kimchi_trsq.png', choice: 'img_kimchi/kimchi_trtr_sqsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'e', global: 'i' } },
-            //{ original: 'img_kimchi/kimchi_trtr.png', choice: 'img_kimchi/kimchi_trsq_sqtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'e', global: 'i' } },
+           { original: 'img_kimchi/kimchi_sqsq.png', choice: 'img_kimchi/kimchi_sqtr_trsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'e', global: 'i' } },// e is the left choice, i is the right choice
+           { original: 'img_kimchi/kimchi_sqtr.png', choice: 'img_kimchi/kimchi_sqsq_trtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'e', global: 'i' } },// so here the locally matching figure was on the left and the globally matching figure on the right
+           { original: 'img_kimchi/kimchi_trsq.png', choice: 'img_kimchi/kimchi_trtr_sqsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'e', global: 'i' } },
+           { original: 'img_kimchi/kimchi_trtr.png', choice: 'img_kimchi/kimchi_trsq_sqtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'e', global: 'i' } },
         // above rows repeated
-          //{ original: 'img_kimchi/kimchi_sqsq.png', choice: 'img_kimchi/kimchi_sqtr_trsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'e', global: 'i' } },// e is the left choice, i is the right choice
-          //{ original: 'img_kimchi/kimchi_sqtr.png', choice: 'img_kimchi/kimchi_sqsq_trtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'e', global: 'i' } },// so here the locally matching figure was on the left and the globally matching figure on the right
-            //{ original: 'img_kimchi/kimchi_trsq.png', choice: 'img_kimchi/kimchi_trtr_sqsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'e', global: 'i' } },
-            //{ original: 'img_kimchi/kimchi_trtr.png', choice: 'img_kimchi/kimchi_trsq_sqtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'e', global: 'i' } },
+           { original: 'img_kimchi/kimchi_sqsq.png', choice: 'img_kimchi/kimchi_sqtr_trsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'e', global: 'i' } },// e is the left choice, i is the right choice
+           { original: 'img_kimchi/kimchi_sqtr.png', choice: 'img_kimchi/kimchi_sqsq_trtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'e', global: 'i' } },// so here the locally matching figure was on the left and the globally matching figure on the right
+           { original: 'img_kimchi/kimchi_trsq.png', choice: 'img_kimchi/kimchi_trtr_sqsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'e', global: 'i' } },
+           { original: 'img_kimchi/kimchi_trtr.png', choice: 'img_kimchi/kimchi_trsq_sqtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'e', global: 'i' } },
         // left figure matches globally, right figure matches locally
-        //    { original: 'img_kimchi/kimchi_sqsq.png', choice: 'img_kimchi/kimchi_trsq_sqtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'i', global: 'e' } },
-          //    { original: 'img_kimchi/kimchi_sqtr.png', choice: 'img_kimchi/kimchi_trtr_sqsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'i', global: 'e' } },
-          //    { original: 'img_kimchi/kimchi_trsq.png', choice: 'img_kimchi/kimchi_sqsq_trtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'i', global: 'e' } },
-          //    { original: 'img_kimchi/kimchi_trtr.png', choice: 'img_kimchi/kimchi_sqtr_trsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'i', global: 'e' } },
+           { original: 'img_kimchi/kimchi_sqsq.png', choice: 'img_kimchi/kimchi_trsq_sqtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'i', global: 'e' } },
+           { original: 'img_kimchi/kimchi_sqtr.png', choice: 'img_kimchi/kimchi_trtr_sqsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'i', global: 'e' } },
+           { original: 'img_kimchi/kimchi_trsq.png', choice: 'img_kimchi/kimchi_sqsq_trtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'i', global: 'e' } },
+           { original: 'img_kimchi/kimchi_trtr.png', choice: 'img_kimchi/kimchi_sqtr_trsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'i', global: 'e' } },
         // above rows repeated
-          //    { original: 'img_kimchi/kimchi_sqsq.png', choice: 'img_kimchi/kimchi_trsq_sqtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'i', global: 'e' } },
-          //{ original: 'img_kimchi/kimchi_sqtr.png', choice: 'img_kimchi/kimchi_trtr_sqsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'i', global: 'e' } },
-          //{ original: 'img_kimchi/kimchi_trsq.png', choice: 'img_kimchi/kimchi_sqsq_trtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'i', global: 'e' } },
-          //{ original: 'img_kimchi/kimchi_trtr.png', choice: 'img_kimchi/kimchi_sqtr_trsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'i', global: 'e' } },
+           { original: 'img_kimchi/kimchi_sqsq.png', choice: 'img_kimchi/kimchi_trsq_sqtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'i', global: 'e' } },
+           { original: 'img_kimchi/kimchi_sqtr.png', choice: 'img_kimchi/kimchi_trtr_sqsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'i', global: 'e' } },
+           { original: 'img_kimchi/kimchi_trsq.png', choice: 'img_kimchi/kimchi_sqsq_trtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'i', global: 'e' } },
+           { original: 'img_kimchi/kimchi_trtr.png', choice: 'img_kimchi/kimchi_sqtr_trsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'real', local: 'i', global: 'e' } },
 
         // filler trials: only one figure matches, and either on the local or the global level
           { original: 'img_kimchi/kimchi_sqsq.png', choice: 'img_kimchi/kimchi_sqtr_trtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'locally',  filler_matches_side: 'e'} },
-          //{ original: 'img_kimchi/kimchi_sqsq.png', choice: 'img_kimchi/kimchi_crtr_sqtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'locally',  filler_matches_side: 'i'} },
-          //{ original: 'img_kimchi/kimchi_sqsq.png', choice: 'img_kimchi/kimchi_cisq_trtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'globally', filler_matches_side: 'e'} },
+          { original: 'img_kimchi/kimchi_sqsq.png', choice: 'img_kimchi/kimchi_crtr_sqtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'locally',  filler_matches_side: 'i'} },
+          { original: 'img_kimchi/kimchi_sqsq.png', choice: 'img_kimchi/kimchi_cisq_trtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'globally', filler_matches_side: 'e'} },
           { original: 'img_kimchi/kimchi_sqsq.png', choice: 'img_kimchi/kimchi_cisq_citr.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'globally', filler_matches_side: 'e'} },
-          //{ original: 'img_kimchi/kimchi_sqtr.png', choice: 'img_kimchi/kimchi_trsq_sqsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'locally',  filler_matches_side: 'i'} },
-          //{ original: 'img_kimchi/kimchi_sqtr.png', choice: 'img_kimchi/kimchi_citr_trsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'globally', filler_matches_side: 'e'} },
-          //{ original: 'img_kimchi/kimchi_sqtr.png', choice: 'img_kimchi/kimchi_trtr_crsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'globally', filler_matches_side: 'e'} },
-          //{ original: 'img_kimchi/kimchi_sqtr.png', choice: 'img_kimchi/kimchi_sqsq_crsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'locally',  filler_matches_side: 'e'} },
-          //{ original: 'img_kimchi/kimchi_trsq.png', choice: 'img_kimchi/kimchi_crtr_sqsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'globally', filler_matches_side: 'i'} },
-          //{ original: 'img_kimchi/kimchi_trsq.png', choice: 'img_kimchi/kimchi_trtr_crtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'locally',  filler_matches_side: 'e'} },
-          //{ original: 'img_kimchi/kimchi_trsq.png', choice: 'img_kimchi/kimchi_crsq_sqtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'globally', filler_matches_side: 'e'} },
-          //{ original: 'img_kimchi/kimchi_trsq.png', choice: 'img_kimchi/kimchi_citr_trtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'locally',  filler_matches_side: 'i'} },
-          //{ original: 'img_kimchi/kimchi_trtr.png', choice: 'img_kimchi/kimchi_trsq_sqsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'locally',  filler_matches_side: 'e'} },
-          //{ original: 'img_kimchi/kimchi_trtr.png', choice: 'img_kimchi/kimchi_sqtr_cisq.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'globally', filler_matches_side: 'e'} },
-          //{ original: 'img_kimchi/kimchi_trtr.png', choice: 'img_kimchi/kimchi_crsq_trsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'locally',  filler_matches_side: 'i'} },
-          //{ original: 'img_kimchi/kimchi_trtr.png', choice: 'img_kimchi/kimchi_crsq_crtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'globally', filler_matches_side: 'i'} },
+          { original: 'img_kimchi/kimchi_sqtr.png', choice: 'img_kimchi/kimchi_trsq_sqsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'locally',  filler_matches_side: 'i'} },
+          { original: 'img_kimchi/kimchi_sqtr.png', choice: 'img_kimchi/kimchi_citr_trsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'globally', filler_matches_side: 'e'} },
+          { original: 'img_kimchi/kimchi_sqtr.png', choice: 'img_kimchi/kimchi_trtr_crsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'globally', filler_matches_side: 'e'} },
+          { original: 'img_kimchi/kimchi_sqtr.png', choice: 'img_kimchi/kimchi_sqsq_crsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'locally',  filler_matches_side: 'e'} },
+          { original: 'img_kimchi/kimchi_trsq.png', choice: 'img_kimchi/kimchi_crtr_sqsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'globally', filler_matches_side: 'i'} },
+          { original: 'img_kimchi/kimchi_trsq.png', choice: 'img_kimchi/kimchi_trtr_crtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'locally',  filler_matches_side: 'e'} },
+          { original: 'img_kimchi/kimchi_trsq.png', choice: 'img_kimchi/kimchi_crsq_sqtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'globally', filler_matches_side: 'e'} },
+          { original: 'img_kimchi/kimchi_trsq.png', choice: 'img_kimchi/kimchi_citr_trtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'locally',  filler_matches_side: 'i'} },
+          { original: 'img_kimchi/kimchi_trtr.png', choice: 'img_kimchi/kimchi_trsq_sqsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'locally',  filler_matches_side: 'e'} },
+          { original: 'img_kimchi/kimchi_trtr.png', choice: 'img_kimchi/kimchi_sqtr_cisq.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'globally', filler_matches_side: 'e'} },
+          { original: 'img_kimchi/kimchi_trtr.png', choice: 'img_kimchi/kimchi_crsq_trsq.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'locally',  filler_matches_side: 'i'} },
+          { original: 'img_kimchi/kimchi_trtr.png', choice: 'img_kimchi/kimchi_crsq_crtr.png', data_choice: { test_part: 'kimchi comparison', quality: 'filler', filler_matches: 'globally', filler_matches_side: 'i'} },
         ],
 	};
-
-// 2.6 Question about Kimchi // only in session 2!
-    var kimchi_question = {
-        type: 'survey-multi-choice',
-        questions: [
-            {prompt: "<p>What feeling did you get during the trial?<br><br>[This question was only presented in session 2]</p>", name: 'Kimchi_question', options: ['I had a free choice in selecting the left or the right image', 'Only a part of the trials gave me a free choice in selecting the left or the right image', 'There was one best fitting image in each trial', "I'm not sure"], required:true},
-        ],
-    }
 
 // Turn the fullscreen off
     var fullscreen_off = {
@@ -317,34 +288,49 @@
       type: 'html-button-response',
       stimulus: function(data){
 
+        // count all the globally answered Real-choice-trials
         var RCS = jsPsych.data.get().filter({kimchi_real_preference: 'global'}).count();
+        // array of the results of our participants
         var RCS_compare = [0, 0.5, 1.5, 1.5, 2, 2.5, 3.5, 3.5, 3.5, 4.5, 4.5, 8, 8.5, 8.5, 9, 9.5, 9.5, 10, 10, 10.5, 10.5, 10.5, 10.5, 11, 11, 11, 11.5, 11.5, 12, 13, 13, 13.5, 14.5, 14.5, 15, 15, 15, 15.5, 15.5, 15.5, 16, 16, 16, 16, 16, 17, 17, 17.5, 17.5, 17.5, 18, 18, 19.5, 19.5, 20.5, 22, 22, 22.5, 22.5, 22.5, 23.5, 23.5, 23.5, 24, 25, 26, 27.5, 28, 28, 28.5, 28.5, 30, 31]
+        // check for every participant if the current user has a LOWE score
         var RCS_x = []
         for (var i = 0; i < RCS_compare.length; i++) {
-          if (RCS_compare[i] === RCS){
+          if (RCS_compare[i] === RCS * 2){ // the *2 is necessary because the user only does half as many trials (i.e. where our participants are more global)
             RCS_x.push(0.5)
-          } else if (RCS_compare[i] > RCS) {
+          } else if (RCS_compare[i] > RCS  * 2) {
             RCS_x.push(1)
           } else {
             RCS_x.push(0)
           }
         }
-        RCS = RCS - half_of_nr_of_trials // center the RCS, depends on the number of trials chosen
+        RCS = RCS - 8 // center the RCS of the current user, depends on the number of trials chosen
+        // Calculate the percentage of our participants who are more global than the current user
         var RCS_more_global = (RCS_x.reduce((a, b) => a + b) / RCS_x.length *100).toFixed(0)
-        var RCS_more_local = 100 - RCS_more_global
+        var RCS_more_local = 100 - RCS_more_global // calculate also the percentage of our participants who are more local than the current user
+        // Calculate in which quantile the current user is
+        var RCS_ind = 0
+        if (RCS_more_global > 75){
+          RCS_ind = 0
+        } else if (RCS_more_global > 50) {
+          RCS_ind = 1
+        } else if (RCS_more_global == 50) {
+          RCS_ind = 2
+        } else if (RCS_more_global > 25) {
+          RCS_ind = 3
+        } else if (RCS_more_global >= 0) {
+          RCS_ind = 4
+        }
 
+        // Do the same as above just for the precedence in Fake-choice trials (median RT)
         var local_RT  = jsPsych.data.get().filter({filler_matches: 'locally', filler_correct: true}).select('rt').median();
         var global_RT = jsPsych.data.get().filter({filler_matches: 'globally',filler_correct: true}).select('rt').median();
-        console.log(local_RT)
-        console.log(global_RT)
         var FPS = (global_RT - local_RT).toFixed(0)
-        var FPS_compare = [-4,-3,-3,0,7,8,9,9,10]
+        var FPS_compare = [-764, -566, -510, -508, -381, -356, -352, -329, -271, -258, -250, -249, -242, -227, -211, -165, -145, -139, -136, -135, -117, -111, -102, -100, -97, -82, -80, -73, -62, -62, -59, -47, -43, -41, -36, -29, -27, -24, -9, 0, 3, 3, 4, 5, 8, 21, 33, 41, 58, 70, 75, 78, 82, 101, 105, 143, 149, 170, 182, 183, 189, 190, 191, 212, 220, 246, 251, 267, 424, 433, 472, 523, 554]
         var FPS_x = []
         for (var i = 0; i < FPS_compare.length; i++) {
-          console.log(FPS_compare[i])
           if (FPS_compare[i] == FPS){
             FPS_x.push(0.5)
-          } else if (RCS_compare[i] > FPS) {
+          } else if (FPS_compare[i] > FPS) {
             FPS_x.push(1)
           } else {
             FPS_x.push(0)
@@ -352,79 +338,55 @@
         }
         var FPS_more_global = (FPS_x.reduce((a, b) => a + b) / FPS_x.length *100).toFixed(0)
         var FPS_more_local = 100 - FPS_more_global
-        if (isNaN(FPS)){
-          var FPS = 'NA'
-          var FPS_more_global = 'NA'
-          var FPS_more_local = 'NA'
+        if (isNaN(FPS)){ //if there are not enough correct trials, then the user will be presented NA as result
+          FPS = 'NA'
+          FPS_more_global = 'NA'
+          FPS_more_local = 'NA'
+        }
+        var FPS_ind = 0
+        if (FPS_more_global > 75){
+          FPS_ind = 0
+        } else if ( FPS_more_global > 50) {
+           FPS_ind = 1
+        } else if ( FPS_more_global == 50) {
+           FPS_ind = 2
+        } else if ( FPS_more_global > 25) {
+           FPS_ind = 3
+        } else if ( FPS_more_global >= 0) {
+           FPS_ind = 4
         }
 
-        var mRT = (jsPsych.data.get().filter({test_part: 'kimchi comparison'}).select('rt').median()).toFixed(0);
-
-
-        return "There are multiple ways of calculating your perception bias, resulting in different scores. A positive value means you have a global bias and a negative value stands for a local bias. To put the size of your bias into perspective, we compare you to the 73 participants of our study. " +
+        // Write the results-text that the user will see
+        var fill_in = ["strongly locally biased", "weakly locally biased", "not biased", "weakly globally biased", "strongly globally biased"]
+        return "There are multiple ways of calculating your perception bias, resulting in different scores. For this task, both main scores should give you roughly the same result, but it can easily happen that they don't. A positive value means you have a global bias and a negative value stands for a local bias. To put the size of your bias into perspective, we compare you to the 73 participants of our study. " +
                 "<br><br>" +
                 "<b>Choice score</b>: " + RCS +
                 "<br>" +
-                "maximum local bias  <  " + RCS_more_local + "% " + "  <  you  >   " + RCS_more_global + "%  >  maximum global bias" +
+                "You are " + fill_in[RCS_ind] + " compared to our participants" +
+                "<br>" +
+                "[local bias] < " + RCS_more_local + "% of our participants" + "  <  you  >   " + RCS_more_global + "% of our participants > [global bias]" +
+                "<p> A global choice score means you are more likely to choose the figure with the same global shape. A local choice score means you are more likely to choose the figure with the same small elements. (In those trials where indeed both figures were similar to the original figure) </p>" +
+                "<br>" +
+                "<img src='img_kimchi/web_RCS.png' width='500' height='400'>" +
                 "<br><br>" +
                 "<b>Precedence score</b>: " + FPS +
                 "<br>" +
-                "maximum local bias  <  " + FPS_more_local + "% " + "  <  you  >   " + FPS_more_global + "%  >  maximum global bias" +
+                "You are " + fill_in[FPS_ind] + " compared to our participants" +
+                "<br>" +
+                "[local bias] < " + FPS_more_local + "% of our participants" + "  <  you  >   " + FPS_more_global + "% of our participants > [global bias]" +
+                "<p> A global precedence score means you respond faster in 'global trials', where only one figure was correct and that figure was similar to the original figure in the global shape. A local precedence score means you respond faster in 'local trials', where only one figure was correct and that figure was similar to the original figure in the local elements.</p>" +
+                "<br>" +
+                "<img src='img_kimchi/web_FPS.png' width='500' height='400'>" +
                 "<br><br>" +
-                "Your median reaction time is " + mRT + "" +
-                "In half of the trials, the left <i>and</i> the right figure were similar to the original figure, we will call them the R-choice-trials. In the other half of the trials, only one of the figures was similar to the original figure, the other one was the "
-      },//,
-      choices: ["Continue"]
+                "<b>What does that mean?</b> <br> Not much, frankly speaking. <br> There were studies that tried to find out whether your bias might be correlated to other things, like your mood, your culture, your religion, etc., but our reserach and research by other scientists has shown that the whole concept of local-global-perception bias is too complex and has too many facettes to draw simple conclusions. Simply put, there is not <i>one</i> type of bias, but multiple. <br><br> On my website I explain more clearly (in a video) where this problem comes from, what it means for research and what lesson you can take aways from it (https://www.felixschweigkofler.com/project/local-global/)" +
+                "<p>When you press the button below you will see the raw data (you might need to scroll down) with which the script calculated your scores (your data is not stored anywhere and will cease to exist once you close this window).<br><br></p>"
+      },
+      choices: ["Show me the raw data"]
     }
 
-
-// End the experiment, when clicking on the button the participant get redirected by JATOS, with the URL provided to JATOS when setting the server up, the redirection URL also contains the prolific completion code of this study that was provided to JATOS during the setup
-    var end = {
-      type: 'html-button-response',
-      stimulus: "<p>In the real study participants were redirected to prolific once they finished a session, but when you press the button below your test data will be downloaded as csv-file to your device (if you allow it) and additionally displayed in this window.</p>",
-      choices: ["End the study and save my data to my device"]
-    }
 
 // All 8 segments of the Kimchi-section are pushed into the timeline-array (behind segments of the introduction-section)
-	timeline.push(kimchi_test_trials, results, end);
-
-// timeline.push(fullscreen_on, resize, introduction, kimchi_introduction, prep_time_keyboard, kimchi_practice_trials, kimchi_task_announcement, prep_time_keyboard, kimchi_test_trials, kimchi_question, fullscreen_off, results, end);
-
-
-
-
-
-
-
-// filler trials: only one figure matches, and either on the local or the global level
-//{ sqsq sqtr_trtr   'locally',  filler_matches_side: 'e'} },  e
-//{ sqsq crtr_sqtr   'locally',  filler_matches_side: 'i'} },  i
-//{ sqsq cisq_trtr   'globally', filler_matches_side: 'i'} },  e  !
-//{ sqsq cisq_citr   'globally', filler_matches_side: 'i'} },  e  !
-//{ sqtr trsq_sqsq   'locally',  filler_matches_side: 'i'} },  i
-//{ sqtr citr_trsq   'globally', filler_matches_side: 'e'} },  e
-//{ sqtr trtr_crsq   'globally', filler_matches_side: 'e'} },  e
-//{ sqtr sqsq_crsq   'locally',  filler_matches_side: 'e'} },  e
-//{ trsq crtr_sqsq   'globally', filler_matches_side: 'i'} },  i
-//{ trsq trtr_crtr   'locally',  filler_matches_side: 'e'} },  e
-//{ trsq crsq_sqtr   'globally', filler_matches_side: 'e'} },  e
-//{ trsq citr_trtr   'locally',  filler_matches_side: 'i'} },  i
-//{ trtr trsq_sqsq   'locally',  filler_matches_side: 'e'} },  e
-//{ trtr sqtr_cisq   'globally', filler_matches_side: 'e'} },  e
-//{ trtr crsq_trsq   'locally',  filler_matches_side: 'i'} },  i
-//{ trtr crsq_crtr   'globally', filler_matches_side: 'i'} },  i
-
-
-
-
-
-
-
-
-
-
-
-
+	timeline.push(fullscreen_on, resize, kimchi_introduction, prep_time_keyboard, kimchi_practice_trials, kimchi_task_announcement, prep_time_keyboard, kimchi_test_trials, fullscreen_off, results);
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -462,8 +424,9 @@
       show_progress_bar: true,
       preload_images: images2preload,
       on_finish: function() {
-        jsPsych.data.get().localSave('csv','my_testrun_kimchi_raw_data.csv');
         jsPsych.data.displayData();
+        // jsPsych.data.get().localSave('csv','my_testrun_kimchi_raw_data.csv');  // to save the raw data as csv-file
+
       }
     })
 
